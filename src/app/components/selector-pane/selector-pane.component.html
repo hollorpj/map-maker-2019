@@ -1,3 +1,11 @@
 <div class="selector-pane carbon-background">
-  <button class="mbutton yellow" type="button"><span>Click Here To Upload Your Sprite Sheet.</span></button>
+  <button class="mbutton yellow" (click)="openSpriteUploader()" type="button"><span>Click Here To Upload Your Sprite Sheet.</span></button>
+
+  <img *ngIf="temp" [src]="temp">
 </div>
+
+<input #spriteUploader
+       type="file"
+       style="display: none;"
+       (change)="importSpritesheet($event)"
+/>
