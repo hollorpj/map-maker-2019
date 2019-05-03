@@ -24,7 +24,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/styles/material-button.css"
+              "src/assets/styles/material-button.css",
+              "src/assets/styles/input-effects.css"
             ],
             "scripts": []
           },

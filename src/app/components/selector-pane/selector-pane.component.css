@@ -2,5 +2,11 @@
   position: absolute;
   height: 100%;
   width: 30%;
+}
 
+.input-box {
+  margin-right: 5px;
+  margin-bottom: 20px;
+  background: transparent;
+  color: white;
 }
