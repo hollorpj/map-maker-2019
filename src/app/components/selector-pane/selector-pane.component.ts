@@ -5,18 +5,40 @@ import {Component, ViewChild} from '@angular/core';
   templateUrl: './selector-pane.component.html',
   styleUrls: ['./selector-pane.component.css']
 })
-export class SelectorPaneComponent  {
+export class SelectorPaneComponent {
+
+  /** View Children **/
+
+  @ViewChild('tileSelectorCanvas')
+  private tileSelectorCanvas;
 
   @ViewChild('spriteUploader')
   private spriteUploader;
 
-  private temp;
+  /** State **/
 
-  constructor() { }
+  private spriteSheetImgData;
+
+  private tileWidth;
+  private tileHeight;
+  private space;
+
+  /** Styling **/
+
+  private tileSelectorHeight;
+  private tileSelectorWidth;
+  private tileSelectorPadding;
+
+  constructor() {
+    this.tileSelectorHeight = window.innerHeight * .8;
+    this.tileSelectorWidth = window.innerWidth * .3 * .8;
+    this.tileSelectorPadding = window.innerWidth * .3 * .1 + 'px';
+  }
 
   private openSpriteUploader() {
     let event = new MouseEvent('click', {bubbles: false});
     this.spriteUploader.nativeElement.dispatchEvent(event);
+
   }
 
   public importSpritesheet(spritesheetFile) {
@@ -25,7 +47,12 @@ export class SelectorPaneComponent  {
     var fileReader = new FileReader();
     var that = this;
     fileReader.onload = function(e) {
-       that.temp = fileReader.result;
+       that.spriteSheetImgData = fileReader.result as string;
+       let img = new Image();
+       img.src = that.spriteSheetImgData;
+       img.onload = function() {
+         that.tileSelectorCanvas.nativeElement.getContext("2d").drawImage(img, 0, 0, 1000, 1000);
+       }
     }
     fileReader.readAsDataURL(file);
   }

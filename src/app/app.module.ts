@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SelectorPaneComponent } from './components/selector-pane/selector-pane.component';
 import { WorkspacePaneComponent } from './components/workspace-pane/workspace-pane.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { WorkspacePaneComponent } from './components/workspace-pane/workspace-pa
     WorkspacePaneComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
