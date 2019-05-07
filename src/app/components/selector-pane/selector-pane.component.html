@@ -5,22 +5,24 @@
   <div style="text-align: center;">
     <input [(ngModel)]="tileWidth" class="input-box" type="text" placeholder="Tile Width (px)"/>
     <input [(ngModel)]="tileHeight" class="input-box" type="text" placeholder="Tile Height (px)"/>
-    <input [(ngModel)]="space" class="input-box" type="text" placeholder="Space (px)"/>
   </div>
 
-  <canvas #tileSelectorCanvas
-          [height]="tileSelectorHeight"
-          [width]="tileSelectorWidth"
-          [style.padding-left]="tileSelectorPadding"
-  ></canvas>
+  <!--<canvas #tileSelectorCanvas-->
+          <!--[height]="tileSelectorHeight"-->
+          <!--[width]="tileSelectorWidth"-->
+          <!--[style.padding-left]="tileSelectorPadding">-->
+  <!--</canvas>-->
+
+  <div *ngFor="let tile of tileData">
+    <img  [src]="tile['src']" [style.position]="'absolute'" [ngStyle]="{ 'clip' : tile['clip'] }"/>
+  </div>
 
 </div>
 
 <input #spriteUploader
        type="file"
        style="display: none;"
-       (change)="importSpritesheet($event)"
-/>
+       (change)="importSpritesheet($event)"/>
 
 
 
