@@ -3,9 +3,10 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import {SimpleImage} from "../../canvas-elements/simple-image";
-import {SubImage} from "../../canvas-elements/sub-image";
+import {SimpleImage} from "../../canvas-elements/image/simple-image";
+import {SubImage} from "../../canvas-elements/image/sub-image";
 import {Drawable} from "../../canvas-elements/interface/drawable";
+import {Point} from "../../model/point";
 
 @Component({
   selector: 'selector-pane',
@@ -33,8 +34,11 @@ export class SelectorPaneComponent implements OnInit {
   private tileSelectorWidth;
   private tileSelectorPadding;
 
-  private numTileColumns;
-  private numTileRows;
+  private tileButtonWidth = 32;
+  private tileButtonHeight = 32;
+
+  private tileMarginX = 5;
+  private tileMarginY = 0;
 
   /** Canvas Elements **/
 
@@ -68,42 +72,48 @@ export class SelectorPaneComponent implements OnInit {
        let spritesheet = new Image();
        spritesheet.src = spriteSheetImgData;
        spritesheet.onload = function() {
-         self.initializeTileSelection(spritesheet, spriteSheetImgData);
+         self.initializeTileSelection(spritesheet);
        }
     }
     fileReader.readAsDataURL(file);
   }
 
-  private initializeTileSelection(spritesheetImg, spriteSheetImgData) {
+  private initializeTileSelection(spritesheetImg) {
     const spritesheetWidth = spritesheetImg.width;
     const spritesheetHeight = spritesheetImg.height;
 
     let numTilesWide = spritesheetWidth / this.tileWidth;
     let numTilesTall = spritesheetHeight / this.tileHeight;
 
-    for (let k = 0; k < 1000; k++) {
-      for (let i = 0; i < numTilesTall; i++) {
-        for (let j = 0; j < numTilesWide; j++) {
-          let top = this.tileHeight * i;
-          let right = this.tileWidth * (j + 1);
-          let bottom = this.tileHeight * (i + 1);
-          let left = this.tileWidth * j;
+    for (let i = 0; i < numTilesTall; i++) {
+      for (let j = 0; j < numTilesWide; j++) {
+        let imgX = this.tileWidth * j;
+        let imgY = this.tileHeight * i;
 
-          let canvasX = Math.random() * this.tileSelectorWidth;
-          let canvasY = Math.random() * this.tileSelectorHeight;
+        const canvasPos = this.positionTileInCanvas(j + (numTilesWide * i));
 
-          const img = new SubImage(spritesheetImg, this.ctx, canvasX, canvasY, left, top, this.tileWidth, this.tileHeight);
+        const img = new SubImage(spritesheetImg, this.ctx, canvasPos.x, canvasPos.y, imgX, imgY, this.tileWidth, this.tileHeight);
 
-          this.tileButtons.push(img);
-        }
+        this.tileButtons.push(img);
       }
     }
 
-
     for (let i = 0; i < this.tileButtons.length; i++) {
-      setTimeout(() => this.tileButtons[i].draw(), 300);
+      this.tileButtons[i].draw();
     }
 
+  }
+
+  private positionTileInCanvas(tileNumber) : Point {
+    let numTilesPerRow = Math.floor(this.tileSelectorWidth / this.tileButtonWidth);
+
+    let rowNum = Math.floor(tileNumber / numTilesPerRow);
+    let colNum = tileNumber - (numTilesPerRow * rowNum);
+
+    let posX = colNum * this.tileButtonWidth + this.tileMarginX;
+    let posY = rowNum * this.tileButtonHeight + this.tileMarginY;
+
+    return new Point(posX, posY);
 
   }
 
