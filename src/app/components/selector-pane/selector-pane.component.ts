@@ -3,7 +3,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import {SimpleImage} from "../../canvas-elements/image/simple-image";
 import {SubImage} from "../../canvas-elements/image/sub-image";
 import {Drawable} from "../../canvas-elements/interface/drawable";
 import {Point} from "../../model/point";
@@ -37,8 +36,8 @@ export class SelectorPaneComponent implements OnInit {
   private tileButtonWidth = 32;
   private tileButtonHeight = 32;
 
-  private tileMarginX = 5;
-  private tileMarginY = 0;
+  private tileMarginX = 10;
+  private tileMarginY = 10;
 
   /** Canvas Elements **/
 
@@ -89,11 +88,9 @@ export class SelectorPaneComponent implements OnInit {
       for (let j = 0; j < numTilesWide; j++) {
         let imgX = this.tileWidth * j;
         let imgY = this.tileHeight * i;
-
         const canvasPos = this.positionTileInCanvas(j + (numTilesWide * i));
 
-        const img = new SubImage(spritesheetImg, this.ctx, canvasPos.x, canvasPos.y, imgX, imgY, this.tileWidth, this.tileHeight);
-
+        const img = new SubImage(spritesheetImg, this.ctx, canvasPos.x, canvasPos.y, imgX, imgY, this.tileButtonWidth, this.tileButtonHeight, this.tileWidth, this.tileHeight);
         this.tileButtons.push(img);
       }
     }
@@ -105,13 +102,13 @@ export class SelectorPaneComponent implements OnInit {
   }
 
   private positionTileInCanvas(tileNumber) : Point {
-    let numTilesPerRow = Math.floor(this.tileSelectorWidth / this.tileButtonWidth);
+    let numTilesPerRow = Math.floor(this.tileSelectorWidth / (this.tileButtonWidth + this.tileMarginX));
 
     let rowNum = Math.floor(tileNumber / numTilesPerRow);
     let colNum = tileNumber - (numTilesPerRow * rowNum);
 
-    let posX = colNum * this.tileButtonWidth + this.tileMarginX;
-    let posY = rowNum * this.tileButtonHeight + this.tileMarginY;
+    let posX = colNum * this.tileButtonWidth + (this.tileMarginX * colNum);
+    let posY = rowNum * this.tileButtonHeight + (this.tileMarginY * rowNum);
 
     return new Point(posX, posY);
 

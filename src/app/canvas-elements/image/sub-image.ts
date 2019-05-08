@@ -2,24 +2,28 @@ import {Drawable} from "../interface/drawable";
 
 export class SubImage implements Drawable {
 
-  private image : Image;
+  private image : any;
   private canvasX : number;
   private canvasY : number;
   private imgX : number;
   private imgY : number;
-  private width : number;
-  private height : number;
+  private canvasWidth : number;
+  private canvasHeight : number;
+  private imgWidth : number;
+  private imgHeight : number
 
   private ctx;
 
-  constructor(image : Image, ctx, canvasX : number, canvasY : number, imgX : number, imgY : number, width : number, height : number) {
+  constructor(image : any, ctx, canvasX : number, canvasY : number, imgX : number, imgY : number, canvasWidth : number, canvasHeight : number, imgWidth : number, imgHeight : number) {
     this.image = image;
     this.canvasX = canvasX;
     this.canvasY = canvasY;
     this.imgX = imgX;
     this.imgY = imgY;
-    this.width = width;
-    this.height = height;
+    this.canvasWidth = canvasWidth;
+    this.canvasHeight = canvasHeight;
+    this.imgWidth = imgWidth;
+    this.imgHeight = imgHeight;
 
     this.ctx = ctx;
   }
@@ -27,7 +31,7 @@ export class SubImage implements Drawable {
   public draw() {
     this.ctx.save();
 
-    this.ctx.drawImage(this.image, this.imgX, this.imgY, this.width, this.height, this.canvasX, this.canvasY, this.width, this.height);
+    this.ctx.drawImage(this.image, this.imgX, this.imgY, this.imgWidth, this.imgHeight, this.canvasX, this.canvasY, this.canvasWidth, this.canvasHeight);
 
     this.ctx.restore();
   }
