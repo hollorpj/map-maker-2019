@@ -2,13 +2,13 @@ import {Drawable} from "../interface/drawable";
 
 export class SimpleImage implements Drawable  {
 
-  private image : Image;
+  private image : any;
   private posX : number;
   private posY : number;
 
   private ctx;
 
-  constructor(image : Image, ctx, posX : number, posY : number) {
+  constructor(image : any, ctx, posX : number, posY : number) {
     this.image = image;
     this.posX = posX;
     this.posY = posY;
