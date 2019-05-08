@@ -1,4 +1,4 @@
-import {Drawable} from "./interface/drawable";
+import {Drawable} from "../interface/drawable";
 
 export class SimpleImage implements Drawable  {
 
