@@ -7,15 +7,17 @@
     <input [(ngModel)]="tileHeight" class="input-box" type="text" placeholder="Tile Height (px)"/>
   </div>
 
-  <!--<canvas #tileSelectorCanvas-->
-          <!--[height]="tileSelectorHeight"-->
-          <!--[width]="tileSelectorWidth"-->
-          <!--[style.padding-left]="tileSelectorPadding">-->
-  <!--</canvas>-->
-
-  <div *ngFor="let tile of tileData">
-    <img  [src]="tile['src']" [style.position]="'absolute'" [ngStyle]="{ 'clip' : tile['clip'] }"/>
+  <div class="tile-selector-canvas">
+    <canvas #tileSelectorCanvas
+            [height]="tileSelectorHeight"
+            [width]="tileSelectorWidth"
+            [style.padding-left]="tileSelectorPadding">
+    </canvas>
   </div>
+
+  <!--<div *ngFor="let tile of tileData; let i = index" style="overflow: hidden;">-->
+      <!--<img [src]="tile.src" class="tile" [ngStyle]="{ 'clip-path' : tile.clip }"/>-->
+  <!--</div>-->
 
 </div>
 
