@@ -10,3 +10,12 @@
   background: transparent;
   color: white;
 }
+
+.tile {
+  margin: 10px;
+}
+
+.tile-selector-canvas {
+  overflow-y : scroll;
+  height: 500px;
+}
