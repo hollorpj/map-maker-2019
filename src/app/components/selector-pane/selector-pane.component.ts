@@ -4,8 +4,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import {SubImage} from "../../canvas-elements/image/sub-image";
-import {Drawable} from "../../canvas-elements/interface/drawable";
 import {Point} from "../../model/point";
+import {Drawable} from "../../canvas-elements/interface/drawable";
+import {CanvasButton} from "../../canvas-elements/buttons/canvas-button";
 
 @Component({
   selector: 'selector-pane',
@@ -84,6 +85,16 @@ export class SelectorPaneComponent implements OnInit {
     let numTilesWide = spritesheetWidth / this.tileWidth;
     let numTilesTall = spritesheetHeight / this.tileHeight;
 
+    // let canvasButton = new CanvasButton(this.ctx);
+    // canvasButton.setWidth(64);
+    // canvasButton.setHeight(64);
+    // canvasButton.setPosition(20, 20)
+    // canvasButton.setBackgroundColor('green');
+    // canvasButton.setText('lol');
+    // canvasButton.draw();
+    // canvasButton.setMouseUpBinding(this.foo);
+    // canvasButton.consumeMouseUp('hey');
+
     for (let i = 0; i < numTilesTall; i++) {
       for (let j = 0; j < numTilesWide; j++) {
         let imgX = this.tileWidth * j;
@@ -99,6 +110,10 @@ export class SelectorPaneComponent implements OnInit {
       this.tileButtons[i].draw();
     }
 
+  }
+
+  private foo(event) {
+    alert(event);
   }
 
   private positionTileInCanvas(tileNumber) : Point {
