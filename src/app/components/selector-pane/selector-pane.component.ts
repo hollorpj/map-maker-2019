@@ -3,10 +3,10 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import {SubImage} from "../../canvas-elements/image/sub-image";
 import {Point} from "../../model/point";
 import {Drawable} from "../../canvas-elements/interface/drawable";
 import {CanvasButton} from "../../canvas-elements/buttons/canvas-button";
+import {SubImage} from "../../canvas-elements/image/sub-image";
 
 @Component({
   selector: 'selector-pane',
