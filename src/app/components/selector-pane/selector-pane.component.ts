@@ -3,7 +3,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import {Drawable} from "src/app/canvas/interface/drawable";
 import {SubImage} from "src/app/canvas/image/sub-image";
 import {CustomButton} from "src/app/canvas/buttons/custom-button";
 import {Point} from "src/app/model/point";
@@ -34,7 +33,7 @@ export class SelectorPaneComponent implements OnInit {
 
   private tileSelectorHeight;
   private tileSelectorWidth;
-  private tileSelectorPadding;
+  private tileSelectorMargin;
 
   private tileButtonWidth = 32;
   private tileButtonHeight = 32;
@@ -45,14 +44,13 @@ export class SelectorPaneComponent implements OnInit {
   /** Canvas Elements **/
 
   private ctx;
-  private tileButtons : Drawable[] = [];
 
   private tileButtonCanvasManager : TileButtonCanvasManager;
 
   constructor() {
     this.tileSelectorHeight = 2000;
     this.tileSelectorWidth = window.innerWidth * .3 * .8;
-    this.tileSelectorPadding = window.innerWidth * .3 * .1 + 'px';
+    this.tileSelectorMargin = window.innerWidth * .3 * .1 + 'px';
   }
 
   ngOnInit() {
@@ -101,6 +99,9 @@ export class SelectorPaneComponent implements OnInit {
         const topLeftPoint = new Point(canvasPos.x, canvasPos.y);
         const bottomRightPoint = new Point(canvasPos.x + this.tileButtonWidth, canvasPos.y + this.tileButtonHeight);
         const boundary = new RectangularBoundary(topLeftPoint, bottomRightPoint);
+        if (i == 0) {
+          console.log(boundary);
+        }
         this.tileButtonCanvasManager.addTileButton(imgButton, boundary);
       }
     }
