@@ -1,10 +1,12 @@
-import {InteractiveElement} from "../interface/interactive-element";
+import {Drawable} from "src/app/canvas/interface/drawable";
+import {MouseEventConsumer} from "src/app/canvas/interface/mouse-event-consumer";
 
-export class CanvasButton implements InteractiveElement {
+export class CanvasButton {
 
-  private bundledElement : InteractiveElement;
 
   private ctx;
+  private artist : Drawable;
+  private mouseListener : MouseEventConsumer;
 
   /** Spatial Parameters **/
 
@@ -23,14 +25,10 @@ export class CanvasButton implements InteractiveElement {
   private fontStyle = 'Arial';
   private fontColor = 'black';
 
-  /** Function Bindings **/
-
-  private mouseDownBinding;
-  private mouseUpBinding;
-
-  constructor(ctx, bundledElement? : InteractiveElement) {
+  constructor(ctx, artist : Drawable, mouseListener : MouseEventConsumer) {
     this.ctx = ctx;
-    this.bundledElement = bundledElement;
+    this.artist = artist;
+    this.mouseListener = mouseListener;
   }
 
   public draw() {
@@ -52,11 +50,7 @@ export class CanvasButton implements InteractiveElement {
   }
 
   public consumeMouseDown(mouseEvent) {
-    this.mouseDownBinding(mouseEvent);
-  }
-
-  public consumeMouseUp(mouseEvent) {
-    this.mouseUpBinding(mouseEvent);
+    this.mouseListener.consumeMouseDown(mouseEvent);
   }
 
   public setPosition(x: number, y: number) {
@@ -91,14 +85,5 @@ export class CanvasButton implements InteractiveElement {
   public setFontColor(fontColor : string) {
     this.fontColor = fontColor;
   }
-
-  public setMouseDownBinding(mouseDownBinding) {
-    this.mouseDownBinding = mouseDownBinding;
-  }
-
-  public setMouseUpBinding(mouseUpBinding) {
-    this.mouseUpBinding = mouseUpBinding;
-  }
-
 
 }

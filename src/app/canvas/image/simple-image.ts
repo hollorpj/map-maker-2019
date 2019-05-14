@@ -23,4 +23,9 @@ export class SimpleImage implements Drawable  {
 
     this.ctx.restore();
   }
+
+  setPosition(x: number, y: number) {
+    this.posX = x;
+    this.posY = y;
+  }
 }
