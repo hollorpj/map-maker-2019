@@ -28,4 +28,12 @@ export class SimpleImage implements Drawable  {
     this.posX = x;
     this.posY = y;
   }
+
+  changeContext(ctx) {
+    this.ctx = ctx;
+  }
+
+  scaleToSize(width: number, height: number) {
+    throw Error("unsupported operation");
+  }
 }
