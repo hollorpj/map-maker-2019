@@ -5,7 +5,6 @@ import {Boundary} from "src/app/canvas/interface/boundary";
 export class CustomButton implements Drawable {
 
   private artist : Drawable;
-  private mouseEventConsumer : MouseEventConsumer;
 
   constructor(artist : Drawable) {
     this.artist = artist;
@@ -23,12 +22,24 @@ export class CustomButton implements Drawable {
     this.artist.setPosition(x, y);
   }
 
+  public changeContext(ctx) {
+    this.artist.changeContext(ctx);
+  }
+
+  public scaleToSize(width: number, height: number) {
+    this.artist.scaleToSize(width, height);
+  }
+
   /**
    * API Methods
    */
 
-  public attachMouseEventConsumer(mouseEventConsumer : MouseEventConsumer) {
-    this.mouseEventConsumer = mouseEventConsumer;
+  /**
+   * Returns a copy of this button
+   */
+  public copy() : CustomButton {
+    const clone = new CustomButton(this.artist);
+    return clone;
   }
 
 }

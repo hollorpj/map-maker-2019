@@ -40,7 +40,6 @@ export class MouseEventConsumerImpl implements MouseEventConsumer {
   }
 
   isClickWithinBoundary(clickX: number, clickY: number) : boolean {
-    console.log(clickX + "::" + clickY);
     return this.boundary.isPointInBoundary(new Point(clickX, clickY));
   }
 

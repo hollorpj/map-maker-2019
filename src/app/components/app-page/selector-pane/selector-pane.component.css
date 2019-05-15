@@ -18,4 +18,9 @@
 .tile-selector-canvas {
   overflow-y : scroll;
   height: 500px;
+
+}
+
+.sprite-upload {
+  margin-top: 50px;
 }

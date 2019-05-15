@@ -36,9 +36,18 @@ export class SubImage implements Drawable {
     this.ctx.restore();
   }
 
-  setPosition(x: number, y: number) {
+  public setPosition(x: number, y: number) {
     this.canvasX = x;
     this.canvasY = y;
+  }
+
+  public scaleToSize(width: number, height: number) {
+    this.canvasWidth = width;
+    this.canvasHeight = height;
+  }
+
+  public changeContext(ctx) {
+    this.ctx = ctx;
   }
 
 }

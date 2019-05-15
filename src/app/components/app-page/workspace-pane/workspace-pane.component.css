@@ -1,0 +1,17 @@
+.workspace-pane {
+  position: absolute;
+  height: 100%;
+  width: 70%;
+  left: 30%;
+}
+
+.canvas-current-selection {
+  width: 6.5vw;
+  height: 6.5vw;
+
+  right: 20px;
+  top: 20px;
+  position: absolute;
+
+  background-color: black;
+}

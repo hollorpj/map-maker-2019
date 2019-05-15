@@ -6,8 +6,9 @@ import {
 import {SubImage} from "src/app/canvas/image/sub-image";
 import {CustomButton} from "src/app/canvas/buttons/custom-button";
 import {Point} from "src/app/model/point";
-import {TileButtonCanvasManager} from "src/app/components/selector-pane/canvas/tile-button-canvas-manager";
+import {TileButtonCanvasManager} from "src/app/components/app-page/selector-pane/canvas/tile-button-canvas-manager";
 import {RectangularBoundary} from "src/app/canvas/boundary/rectangular-boundary";
+import {InterComponentCommService} from "src/app/components/app-page/inter-component-comm.service";
 
 @Component({
   selector: 'selector-pane',
@@ -47,22 +48,20 @@ export class SelectorPaneComponent implements OnInit {
 
   private tileButtonCanvasManager : TileButtonCanvasManager;
 
-  constructor() {
+  constructor(private appCommSvc : InterComponentCommService) {
     this.tileSelectorHeight = 2000;
     this.tileSelectorWidth = window.innerWidth * .3 * .8;
-    this.tileSelectorMargin = window.innerWidth * .3 * .1 + 'px';
   }
 
   ngOnInit() {
     this.ctx = this.tileSelectorCanvas.nativeElement.getContext("2d");
-    this.tileButtonCanvasManager = new TileButtonCanvasManager(this.tileSelectorCanvas.nativeElement);
+    this.tileButtonCanvasManager = new TileButtonCanvasManager(this.tileSelectorCanvas.nativeElement, this.appCommSvc);
   }
 
 
   private openSpriteUploader() {
     let event = new MouseEvent('click', {bubbles: false});
     this.spriteUploader.nativeElement.dispatchEvent(event);
-
   }
 
   public importSpritesheet(spritesheetFile) {
@@ -82,9 +81,10 @@ export class SelectorPaneComponent implements OnInit {
   }
 
   private initializeTileSelection(spritesheetImg) {
+    this.tileSelectorMargin = (this.tileSelectorWidth - this.calculateNumberTilesPerRow() * this.tileWidth) / 2 + 'px';
+
     const spritesheetWidth = spritesheetImg.width;
     const spritesheetHeight = spritesheetImg.height;
-
     let numTilesWide = spritesheetWidth / this.tileWidth;
     let numTilesTall = spritesheetHeight / this.tileHeight;
 
@@ -99,9 +99,7 @@ export class SelectorPaneComponent implements OnInit {
         const topLeftPoint = new Point(canvasPos.x, canvasPos.y);
         const bottomRightPoint = new Point(canvasPos.x + this.tileButtonWidth, canvasPos.y + this.tileButtonHeight);
         const boundary = new RectangularBoundary(topLeftPoint, bottomRightPoint);
-        if (i == 0) {
-          console.log(boundary);
-        }
+
         this.tileButtonCanvasManager.addTileButton(imgButton, boundary);
       }
     }
@@ -110,7 +108,7 @@ export class SelectorPaneComponent implements OnInit {
   }
 
   private positionTileInCanvas(tileNumber) : Point {
-    let numTilesPerRow = Math.floor(this.tileSelectorWidth / (this.tileButtonWidth + this.tileMarginX));
+    let numTilesPerRow = this.calculateNumberTilesPerRow();
 
     let rowNum = Math.floor(tileNumber / numTilesPerRow);
     let colNum = tileNumber - (numTilesPerRow * rowNum);
@@ -119,6 +117,10 @@ export class SelectorPaneComponent implements OnInit {
     let posY = rowNum * this.tileButtonHeight + (this.tileMarginY * rowNum);
 
     return new Point(posX, posY);
+  }
+
+  private calculateNumberTilesPerRow() {
+    return Math.floor(this.tileSelectorWidth / (this.tileButtonWidth + this.tileMarginX));
   }
 
 }

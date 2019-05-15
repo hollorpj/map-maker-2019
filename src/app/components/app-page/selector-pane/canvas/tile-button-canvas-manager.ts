@@ -2,14 +2,18 @@ import {MouseEventCoordinator} from "src/app/canvas/engine/mouse-event-coordinat
 import {CustomButton} from "src/app/canvas/buttons/custom-button";
 import {Boundary} from "src/app/canvas/interface/boundary";
 import {MouseEventConsumerImpl} from "src/app/canvas/buttons/button-listener";
+import {InterComponentCommService} from "src/app/components/app-page/inter-component-comm.service";
 
 export class TileButtonCanvasManager {
+
+  private appCommSvc : InterComponentCommService;
 
   private tileButtons : CustomButton[] = [];
   private mouseEventCoordinator : MouseEventCoordinator;
 
-  constructor(canvasElement) {
+  constructor(canvasElement, appCommSvc : InterComponentCommService) {
     this.mouseEventCoordinator = new MouseEventCoordinator(canvasElement);
+    this.appCommSvc = appCommSvc;
   }
 
   /**
@@ -42,14 +46,14 @@ export class TileButtonCanvasManager {
 
   private generateMouseConsumer(tileButton : CustomButton, boundary : Boundary) {
     const mouseConsumer = new MouseEventConsumerImpl();
-    mouseConsumer.setMouseDownCallback(this.mouseDownTest);
+    mouseConsumer.setMouseDownCallback(this.selectTile.bind(this, tileButton));
     mouseConsumer.setBoundary(boundary);
 
     return mouseConsumer;
   }
 
-  private mouseDownTest() {
-    alert('worked');
+  private selectTile(tile : CustomButton) {
+    this.appCommSvc.getTileSelectionImageEmitter().emit(tile.copy());
   }
 
 
