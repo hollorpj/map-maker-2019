@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {DiskButtonComponent} from "src/app/components/shared/buttons/disk-button/disk-button.component";
 import {WrenchButtonComponent} from "src/app/components/shared/buttons/wrench-button/wrench-button.component";
 
@@ -8,6 +8,11 @@ import {WrenchButtonComponent} from "src/app/components/shared/buttons/wrench-bu
   styleUrls: ['./button-panel.component.css']
 })
 export class ButtonPanelComponent implements OnInit {
+
+  /** Input / Output **/
+
+  @Output()
+  public drawerToggle : EventEmitter<boolean> = new EventEmitter<boolean>();
 
   /** View Children **/
 
@@ -27,6 +32,7 @@ export class ButtonPanelComponent implements OnInit {
   }
 
   public toggleDrawer() {
+
     if (!this.drawerEnabled) {
       this.expandDrawer();
     } else {
@@ -36,17 +42,27 @@ export class ButtonPanelComponent implements OnInit {
   }
 
   private expandDrawer() {
-    this.drawerEnabled = !this.drawerEnabled;
+    this.drawerToggle.emit(true);
+
     setTimeout(() => {
-      this.diskButtonElRef.setVisible(this.drawerEnabled);
-      this.wrenchButtonElRef.setVisible(this.drawerEnabled);
-    }, 200);
+      this.drawerEnabled = true;
+      setTimeout(() => {
+        this.diskButtonElRef.setVisible(this.drawerEnabled);
+        this.wrenchButtonElRef.setVisible(this.drawerEnabled);
+      }, 200);
+    }, 10);
   }
 
   private contractDrawer() {
-    this.drawerEnabled = !this.drawerEnabled;
-    this.diskButtonElRef.setVisible(this.drawerEnabled);
-    this.wrenchButtonElRef.setVisible(this.drawerEnabled);
+    this.drawerToggle.emit(false);
+
+    setTimeout(() => {
+      this.diskButtonElRef.setVisible(false);
+      this.wrenchButtonElRef.setVisible(false);
+      setTimeout(() => {
+        this.drawerEnabled = false;
+      }, 10);
+    }, 10);
   }
 
 }

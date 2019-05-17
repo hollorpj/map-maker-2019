@@ -23,6 +23,10 @@ export class WorkspacePaneComponent implements OnInit {
   private selectedTileCanvasWidth;
   private selectedTileCanvasHeight;
 
+  /** State **/
+
+  private settingsExpanded : boolean = false;
+
   constructor(private appCommSvc : InterComponentCommService) {
     this.selectedTileCanvasWidth = window.innerWidth * .065;
     this.selectedTileCanvasHeight = window.innerWidth * .065;
@@ -37,6 +41,14 @@ export class WorkspacePaneComponent implements OnInit {
 
   ngOnInit() {
     this.selectedTileCanvasCtx = this.selectedTileCanvasElRef.nativeElement.getContext("2d");
+  }
+
+  /**
+   * HTML Methods
+   */
+
+  public formatSettingsPanel(expanded) {
+    this.settingsExpanded = expanded;
   }
 
 

@@ -6,5 +6,7 @@
     </canvas>
   </div>
 
-  <button-panel class="button-panel"></button-panel>
+  <button-panel class="button-panel"
+                [ngClass]="{ 'skew-button-panel' : settingsExpanded }"
+                (drawerToggle)="formatSettingsPanel($event)"></button-panel>
 </div>

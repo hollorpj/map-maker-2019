@@ -18,6 +18,13 @@
 
 .button-panel {
   position: absolute;
-  top: 35%;
+  top: 40%;
   right: 10px;
+
+  transition-duration: 200ms;
+}
+
+.skew-button-panel {
+  top: 33%;
+  transition-duration: 100ms;
 }
