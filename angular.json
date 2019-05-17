@@ -26,8 +26,7 @@
               "src/styles.css",
               "src/assets/styles/material-button.css",
               "src/assets/styles/input-effects.css",
-              "src/assets/styles/social-buttons.css",
-              "node_modules/font-awesome/css/font-awesome.css"
+              "src/assets/styles/social-buttons.css"
             ],
             "scripts": []
           },

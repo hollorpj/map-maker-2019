@@ -1,0 +1,9 @@
+.button {
+  background: linear-gradient(rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
+  box-shadow: 0px 3px 5px 0px #3d3d3d;
+}
+
+.inner-button {
+  position: relative;
+  background-color: rgb(220, 220, 220) !important;
+}

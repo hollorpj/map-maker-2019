@@ -1,3 +1,23 @@
-  <div class="one-button">
-    <i class="fa fa-2x">⚙</i>
-  </div>
+<div class="drawer"
+     (click)="toggleDrawer()"
+     [ngClass]="{ 'expand-drawer' : drawerEnabled } ">
+
+  <div *ngIf="!drawerEnabled" class="text">...</div>
+
+  <disk-button #diskButton
+               class="disk-orb">
+  </disk-button>
+
+  <wrench-button #wrenchButton
+                 class="wrench-orb">
+  </wrench-button>
+
+</div>
+
+<!--<div class="content">-->
+  <!--<div class="wrench"><wrench-button></wrench-button></div>-->
+  <!--<disk-button></disk-button>-->
+<!--</div>-->
+
+
+
