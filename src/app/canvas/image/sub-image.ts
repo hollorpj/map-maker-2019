@@ -50,4 +50,12 @@ export class SubImage implements Drawable {
     this.ctx = ctx;
   }
 
+  public getX(): number {
+    return this.canvasX;
+  }
+
+  public getY(): number {
+    return this.canvasY;
+  }
+
 }

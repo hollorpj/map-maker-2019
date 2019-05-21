@@ -54,6 +54,7 @@ export class TileButtonCanvasManager {
 
   private selectTile(tile : CustomButton) {
     this.appCommSvc.getTileSelectionImageEmitter().emit(tile.copy());
+    this.appCommSvc.setCurrentlySelectedTile(tile.getArtist());
   }
 
 

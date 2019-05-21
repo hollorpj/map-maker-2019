@@ -36,4 +36,12 @@ export class SimpleImage implements Drawable  {
   scaleToSize(width: number, height: number) {
     throw Error("unsupported operation");
   }
+
+  public getX(): number {
+    return this.posX;
+  }
+
+  public getY(): number {
+    return this.posY;
+  }
 }

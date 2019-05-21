@@ -9,6 +9,7 @@ import { ButtonPanelComponent } from './components/app-page/workspace-pane/widge
 import { WrenchButtonComponent } from './components/shared/buttons/wrench-button/wrench-button.component';
 import { DiskButtonComponent } from './components/shared/buttons/disk-button/disk-button.component';
 import { AbstractButtonComponent } from './components/shared/buttons/abstract-button/abstract-button.component';
+import { DrawingBoardComponent } from './components/app-page/workspace-pane/widgets/drawing-board/drawing-board.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AbstractButtonComponent } from './components/shared/buttons/abstract-bu
     ButtonPanelComponent,
     WrenchButtonComponent,
     DiskButtonComponent,
-    AbstractButtonComponent
+    AbstractButtonComponent,
+    DrawingBoardComponent
   ],
   imports: [
     BrowserModule,

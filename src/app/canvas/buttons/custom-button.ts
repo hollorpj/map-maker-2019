@@ -30,9 +30,13 @@ export class CustomButton implements Drawable {
     this.artist.scaleToSize(width, height);
   }
 
-  /**
-   * API Methods
-   */
+  public getX(): number {
+    return this.artist.getX();
+  }
+
+  public getY(): number {
+    return this.artist.getY();
+  }
 
   /**
    * Returns a copy of this button
@@ -41,5 +45,10 @@ export class CustomButton implements Drawable {
     const clone = new CustomButton(this.artist);
     return clone;
   }
+
+  public getArtist() : Drawable {
+    return this.artist;
+  }
+
 
 }

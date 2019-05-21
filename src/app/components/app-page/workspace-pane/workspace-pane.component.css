@@ -16,6 +16,12 @@
   background-color: black;
 }
 
+.drawing-board {
+  position: absolute;
+  right: calc(20px + 6.5vw + 40px);
+  top: calc(10vh);
+}
+
 .button-panel {
   position: absolute;
   top: 40%;
