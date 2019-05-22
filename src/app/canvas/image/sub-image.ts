@@ -58,4 +58,8 @@ export class SubImage implements Drawable {
     return this.canvasY;
   }
 
+  public clone() {
+    return new SubImage(this.image, this.ctx, this.canvasX, this.canvasY, this.imgX, this.imgY, this.canvasWidth, this.canvasHeight, this.imgWidth, this.imgHeight);
+  }
+
 }

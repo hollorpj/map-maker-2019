@@ -44,4 +44,8 @@ export class SimpleImage implements Drawable  {
   public getY(): number {
     return this.posY;
   }
+
+  public clone() {
+    return new SimpleImage(this.image, this.ctx, this.posX, this.posY);
+  }
 }

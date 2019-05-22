@@ -38,6 +38,10 @@ export class CustomButton implements Drawable {
     return this.artist.getY();
   }
 
+  public clone() {
+    this.artist.clone();
+  }
+
   /**
    * Returns a copy of this button
    */

@@ -59,6 +59,10 @@ export class FilledRectangle implements Drawable {
     return this.y;
   }
 
+  clone() {
+    return new FilledRectangle(this.ctx, this.x, this.y, this.width, this.height);
+  }
+
   /**
    * Mutator Methods
    */

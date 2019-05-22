@@ -6,5 +6,6 @@ export interface Drawable {
   setPosition(x : number, y : number);
   getX() : number;
   getY() : number;
+  clone();
 
 }

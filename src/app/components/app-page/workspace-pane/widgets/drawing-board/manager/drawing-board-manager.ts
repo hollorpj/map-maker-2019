@@ -46,7 +46,8 @@ export class DrawingBoardManager {
   }
 
   private paintTile(tile : GridElement) {
-    const currentlySelectedTile = this.appCommSvc.getCurrentlySelectedTile();
+    const currentlySelectedTile = this.appCommSvc.getCurrentlySelectedTile().clone();
+
     const x = tile.getX();
     const y = tile.getY();
 

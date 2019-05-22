@@ -41,6 +41,10 @@ export class GridElement implements Drawable {
     return this.artist.getY();
   }
 
+  public clone() {
+    return this.artist.clone();
+  }
+
   /**
    * Implementation-Specific Methods
    */
