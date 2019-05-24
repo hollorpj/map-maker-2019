@@ -37,12 +37,31 @@ export class DrawingBoardManager {
    * Internal Methods
    */
 
+  private mousePressed : boolean = false;
+
   private registerClickListener(tile : GridElement, boundary : RectangularBoundary) {
     const mouseConsumer = new MouseEventConsumerImpl();
-    mouseConsumer.setMouseDownCallback(this.paintTile.bind(this, tile));
+    mouseConsumer.setMouseDownCallback(this.mouseDownCallback.bind(this, tile));
+    mouseConsumer.setMouseUpCallback(this.mouseUpCallback.bind(this));
+    mouseConsumer.setMouseMoveCallback(this.mouseMoveCallback.bind(this, tile));
     mouseConsumer.setBoundary(boundary);
 
     this.mouseEventCoordinator.addConsumer(mouseConsumer);
+  }
+
+  private mouseDownCallback(tile : GridElement) {
+    this.mousePressed = true;
+    this.paintTile(tile);
+  }
+
+  private mouseUpCallback() {
+    this.mousePressed = false;
+  }
+
+  private mouseMoveCallback(tile : GridElement) {
+    if (this.mousePressed) {
+      this.paintTile(tile);
+    }
   }
 
   private paintTile(tile : GridElement) {

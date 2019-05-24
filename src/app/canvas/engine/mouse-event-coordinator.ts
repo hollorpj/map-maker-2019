@@ -49,19 +49,47 @@ export class MouseEventCoordinator {
   }
 
   private bubbleMouseUpEvents(mouseEvent) {
+    const clickX = mouseEvent.offsetX;
+    const clickY = mouseEvent.offsetY;
 
+    for (let i = 0; i < this.mouseEventConsumers.length; i++) {
+      if (this.mouseEventConsumers[i].isClickWithinBoundary(clickX, clickY)) {
+        this.mouseEventConsumers[i].consumeMouseUp(mouseEvent);
+      }
+    }
   }
 
   private bubbleMouseMoveEvents(mouseEvent) {
+    const clickX = mouseEvent.offsetX;
+    const clickY = mouseEvent.offsetY;
 
+    for (let i = 0; i < this.mouseEventConsumers.length; i++) {
+      if (this.mouseEventConsumers[i].isClickWithinBoundary(clickX, clickY)) {
+        this.mouseEventConsumers[i].consumeMouseMove(mouseEvent);
+      }
+    }
   }
 
   private bubbleMouseEnterEvents(mouseEvent) {
+    const clickX = mouseEvent.offsetX;
+    const clickY = mouseEvent.offsetY;
 
+    for (let i = 0; i < this.mouseEventConsumers.length; i++) {
+      if (this.mouseEventConsumers[i].isClickWithinBoundary(clickX, clickY)) {
+        this.mouseEventConsumers[i].consumeMouseEnter(mouseEvent);
+      }
+    }
   }
 
   private bubbleMouseLeaveEvents(mouseEvent) {
+    const clickX = mouseEvent.offsetX;
+    const clickY = mouseEvent.offsetY;
 
+    for (let i = 0; i < this.mouseEventConsumers.length; i++) {
+      if (this.mouseEventConsumers[i].isClickWithinBoundary(clickX, clickY)) {
+        this.mouseEventConsumers[i].consumeMouseLeave(mouseEvent);
+      }
+    }
   }
 
 }

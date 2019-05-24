@@ -115,7 +115,7 @@ export class SelectorPaneComponent implements OnInit {
     }
     this.numExistingTiles += (numTilesWide * numTilesTall);
 
-    // This is a hack - When the canvas is resized, it clears the canvas after this is called. Creating a slight delay mitigates this
+    // This is a hack - When the canvas is resized, it clears the canvas after this draw method is called. Creating a slight delay mitigates this
     setTimeout(() => this.tileButtonCanvasManager.draw(), 1);
   }
 
