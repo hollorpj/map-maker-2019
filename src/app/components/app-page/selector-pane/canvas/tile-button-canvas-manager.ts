@@ -2,16 +2,16 @@ import {MouseEventCoordinator} from "src/app/canvas/engine/mouse-event-coordinat
 import {CustomButton} from "src/app/canvas/buttons/custom-button";
 import {Boundary} from "src/app/canvas/interface/boundary";
 import {MouseEventConsumerImpl} from "src/app/canvas/buttons/button-listener";
-import {InterComponentCommService} from "src/app/components/app-page/inter-component-comm.service";
+import {InterComponentCommunicationService} from "src/app/service/inter-component-communication.service";
 
 export class TileButtonCanvasManager {
 
-  private appCommSvc : InterComponentCommService;
+  private appCommSvc : InterComponentCommunicationService;
 
   private tileButtons : CustomButton[] = [];
   private mouseEventCoordinator : MouseEventCoordinator;
 
-  constructor(canvasElement, appCommSvc : InterComponentCommService) {
+  constructor(canvasElement, appCommSvc : InterComponentCommunicationService) {
     this.mouseEventCoordinator = new MouseEventCoordinator(canvasElement);
     this.appCommSvc = appCommSvc;
   }

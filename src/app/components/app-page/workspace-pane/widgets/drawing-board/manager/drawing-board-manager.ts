@@ -1,19 +1,19 @@
 import {GridElement} from "src/app/canvas/buttons/grid-element";
 import {RectangularBoundary} from "src/app/canvas/boundary/rectangular-boundary";
 import {MouseEventCoordinator} from "src/app/canvas/engine/mouse-event-coordinator";
-import {InterComponentCommService} from "src/app/components/app-page/inter-component-comm.service";
+import {InterComponentCommunicationService} from "src/app/service/inter-component-communication.service";
 import {MouseEventConsumerImpl} from "src/app/canvas/buttons/button-listener";
 
 export class DrawingBoardManager {
 
-  private appCommSvc : InterComponentCommService;
+  private appCommSvc : InterComponentCommunicationService;
 
   private drawingBoardTiles : GridElement[] = [];
   private mouseEventCoordinator : MouseEventCoordinator;
 
   private ctx;
 
-  constructor(appCommSvc : InterComponentCommService, canvasElement ) {
+  constructor(appCommSvc : InterComponentCommunicationService, canvasElement ) {
     this.appCommSvc = appCommSvc;
     this.mouseEventCoordinator = new MouseEventCoordinator(canvasElement);
     this.ctx = canvasElement.getContext("2d");

@@ -8,7 +8,7 @@ import {CustomButton} from "src/app/canvas/buttons/custom-button";
 import {Point} from "src/app/model/point";
 import {TileButtonCanvasManager} from "src/app/components/app-page/selector-pane/canvas/tile-button-canvas-manager";
 import {RectangularBoundary} from "src/app/canvas/boundary/rectangular-boundary";
-import {InterComponentCommService} from "src/app/components/app-page/inter-component-comm.service";
+import {InterComponentCommunicationService} from "src/app/service/inter-component-communication.service";
 
 @Component({
   selector: 'selector-pane',
@@ -52,8 +52,8 @@ export class SelectorPaneComponent implements OnInit {
 
   private tileButtonCanvasManager : TileButtonCanvasManager;
 
-  constructor(private appCommSvc : InterComponentCommService) {
-    this.tileSelectorHeight = 2000;
+  constructor(private appCommSvc : InterComponentCommunicationService) {
+  this.tileSelectorHeight = 2000;
     this.tileSelectorWidth = window.innerWidth * .3 * .8;
   }
 

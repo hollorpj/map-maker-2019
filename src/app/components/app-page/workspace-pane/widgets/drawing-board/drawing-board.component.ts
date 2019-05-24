@@ -5,7 +5,8 @@ import {DrawingBoardManager} from "src/app/components/app-page/workspace-pane/wi
 import {GridElement} from "src/app/canvas/buttons/grid-element";
 import {RectangularBoundary} from "src/app/canvas/boundary/rectangular-boundary";
 import {Point} from "src/app/model/point";
-import {InterComponentCommService} from "src/app/components/app-page/inter-component-comm.service";
+import {InterComponentCommunicationService} from "src/app/service/inter-component-communication.service";
+import {SettingsStateService} from "src/app/service/settings-state-service.service";
 
 @Component({
   selector: 'drawing-board',
@@ -23,8 +24,11 @@ export class DrawingBoardComponent implements AfterViewInit {
 
   /** Display Constants **/
 
-  private drawingBoardWidth : number = window.innerWidth * .58 - 20;
-  private drawingBoardHeight : number = window.innerHeight * .8;
+  private canvasContainerWidth : string;
+  private canvasContainerHeight : string;
+
+  private drawingBoardWidth : number;
+  private drawingBoardHeight : number;
 
   private tileWidth : number = 32;
   private tileHeight : number = 32;
@@ -38,7 +42,25 @@ export class DrawingBoardComponent implements AfterViewInit {
 
   /** Initialization **/
 
-  constructor(private appCommSvc : InterComponentCommService) { }
+  constructor(private appCommSvc : InterComponentCommunicationService,
+              private settingsStateSvc : SettingsStateService) {
+    this.canvasContainerHeight = window.innerHeight * .8 + 'px';
+    this.canvasContainerWidth = window.innerWidth * .58 - 20 + 'px';
+
+    const tentativeDrawingBoardWidth = window.innerWidth * .58 - 20;
+    if (this.settingsStateSvc.getWorkspaceTilesWide() * this.tileWidth > tentativeDrawingBoardWidth) {
+      this.drawingBoardWidth = this.settingsStateSvc.getWorkspaceTilesWide() * this.tileWidth;
+    } else {
+      this.drawingBoardWidth = tentativeDrawingBoardWidth;
+    }
+
+    const tentativeDrawingBoardHeight = window.innerHeight * .8;
+    if (this.settingsStateSvc.getWorkspaceTilesTall()  * this.tileHeight > tentativeDrawingBoardHeight) {
+      this.drawingBoardHeight = this.settingsStateSvc.getWorkspaceTilesTall() * this.tileHeight;
+    } else {
+      this.drawingBoardHeight = tentativeDrawingBoardHeight;
+    }
+  }
 
   ngAfterViewInit() {
     this.canvasCtx = this.drawingBoardElRef.nativeElement.getContext("2d");

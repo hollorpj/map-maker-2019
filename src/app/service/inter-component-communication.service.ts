@@ -5,8 +5,14 @@ import {Drawable} from "src/app/canvas/interface/drawable";
 @Injectable({
   providedIn: 'root'
 })
-export class InterComponentCommService {
+export class InterComponentCommunicationService {
 
+  /**
+   * When a tile is clicked in the selection pane, it emits an event through this emitter
+   * containing the data relating to the tile that was just clicked.
+   * This tile data is then consumed by an observer in the workspace pane and used to draw the selected tile
+   * in the top right corner as a preview
+   */
   private tileSelectionImageEmitter : EventEmitter<CustomButton> = new EventEmitter<CustomButton>();
 
   private currentlySelectedTile : Drawable;

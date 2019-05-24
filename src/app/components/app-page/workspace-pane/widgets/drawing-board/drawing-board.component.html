@@ -1,4 +1,8 @@
-<canvas #drawingBoard
-        [width]="drawingBoardWidth"
-        [height]="drawingBoardHeight">
-</canvas>
+<div class="drawing-board-container"
+     [style.width]="canvasContainerWidth"
+     [style.height]="canvasContainerHeight">
+  <canvas #drawingBoard
+          [width]="drawingBoardWidth"
+          [height]="drawingBoardHeight">
+  </canvas>
+</div>

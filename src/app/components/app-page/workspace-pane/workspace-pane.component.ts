@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {InterComponentCommService} from "src/app/components/app-page/inter-component-comm.service";
+import {InterComponentCommunicationService} from "src/app/service/inter-component-communication.service";
 import {CustomButton} from "src/app/canvas/buttons/custom-button";
+import {SettingsStateService} from "src/app/service/settings-state-service.service";
 
 @Component({
   selector: 'app-workspace-pane',
@@ -27,7 +28,7 @@ export class WorkspacePaneComponent implements OnInit {
 
   private settingsExpanded : boolean = false;
 
-  constructor(private appCommSvc : InterComponentCommService) {
+  constructor(private appCommSvc : InterComponentCommunicationService) {
     this.selectedTileCanvasWidth = window.innerWidth * .065;
     this.selectedTileCanvasHeight = window.innerWidth * .065;
 
