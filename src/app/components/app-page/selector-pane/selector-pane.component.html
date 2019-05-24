@@ -1,6 +1,10 @@
 <div class="selector-pane carbon-background">
 
-  <button class="mbutton yellow sprite-upload" (click)="openSpriteUploader()" type="button"><span>Click Here To Upload Your Sprite Sheet</span></button>
+  <button class="mbutton sprite-upload"
+          (click)="openSpriteUploader()">
+    <span *ngIf="!spritesheetUploaded">Click Here To Upload Your Sprite Sheet</span>
+    <span *ngIf="spritesheetUploaded">Have another sheet to add?</span>
+  </button>
 
   <div class="tile-selector-canvas">
     <canvas #tileSelectorCanvas

@@ -30,6 +30,10 @@ export class SelectorPaneComponent implements OnInit {
   private tileWidth = 32;
   private tileHeight = 32;
 
+  private spritesheetUploaded : boolean = false;
+
+  private numExistingTiles : number = 0;
+
   /** Styling **/
 
   private tileSelectorHeight;
@@ -74,28 +78,34 @@ export class SelectorPaneComponent implements OnInit {
        let spritesheet = new Image();
        spritesheet.src = spriteSheetImgData;
        spritesheet.onload = function() {
-         self.initializeTileSelection(spritesheet);
+         self.spritesheetUploaded = true;
+         self.addTilesToSelection(spritesheet);
+         self.spriteUploader.nativeElement.value = '';
        }
     }
     fileReader.readAsDataURL(file);
   }
 
-  private initializeTileSelection(spritesheetImg) {
+  private addTilesToSelection(spritesheetImg) {
     this.tileSelectorMargin = (this.tileSelectorWidth - this.calculateNumberTilesPerRow() * this.tileWidth) / 2 + 'px';
 
-    const spritesheetWidth = spritesheetImg.width;
-    const spritesheetHeight = spritesheetImg.height;
-    let numTilesWide = spritesheetWidth / this.tileWidth;
-    let numTilesTall = spritesheetHeight / this.tileHeight;
+
+    const selectionPanelGridDimensions = this.determineSelectionPanelGridDimensions(spritesheetImg.width, spritesheetImg.height);
+    let numTilesWide = selectionPanelGridDimensions.x;
+    let numTilesTall = selectionPanelGridDimensions.y;
 
     for (let i = 0; i < numTilesTall; i++) {
       for (let j = 0; j < numTilesWide; j++) {
         let imgX = this.tileWidth * j;
         let imgY = this.tileHeight * i;
-        const canvasPos = this.positionTileInCanvas(j + (numTilesWide * i));
+        const canvasPos = this.positionTileInCanvas(this.numExistingTiles + j + (numTilesWide * i));
+        while (this.tileSelectorHeight < (canvasPos.y + this.tileButtonHeight)) {
+          this.tileSelectorHeight += this.tileButtonHeight;
+        }
 
         const img = new SubImage(spritesheetImg, this.ctx, canvasPos.x, canvasPos.y, imgX, imgY, this.tileButtonWidth, this.tileButtonHeight, this.tileWidth, this.tileHeight);
         const imgButton = new CustomButton(img);
+
         const topLeftPoint = new Point(canvasPos.x, canvasPos.y);
         const bottomRightPoint = new Point(canvasPos.x + this.tileButtonWidth, canvasPos.y + this.tileButtonHeight);
         const boundary = new RectangularBoundary(topLeftPoint, bottomRightPoint);
@@ -103,9 +113,15 @@ export class SelectorPaneComponent implements OnInit {
         this.tileButtonCanvasManager.addTileButton(imgButton, boundary);
       }
     }
+    this.numExistingTiles += (numTilesWide * numTilesTall);
 
-    this.tileButtonCanvasManager.draw();
+    // This is a hack - When the canvas is resized, it clears the canvas after this is called. Creating a slight delay mitigates this
+    setTimeout(() => this.tileButtonCanvasManager.draw(), 1);
   }
+
+  /*
+   * Helpers
+   */
 
   private positionTileInCanvas(tileNumber) : Point {
     let numTilesPerRow = this.calculateNumberTilesPerRow();
@@ -121,6 +137,18 @@ export class SelectorPaneComponent implements OnInit {
 
   private calculateNumberTilesPerRow() {
     return Math.floor(this.tileSelectorWidth / (this.tileButtonWidth + this.tileMarginX));
+  }
+
+  /**
+   * Will calculate the dimensions of the grid using one of the following procedures:
+   *   1. Determine the width based on the 'spritesheet total width' divided by the 'individual tile width'
+   *      Determine the height based on the 'spritesheet total height' divided by the 'individual tile height'
+   *   2. The values described in item 1, from a previously uploaded spritesheet
+   */
+  private determineSelectionPanelGridDimensions(spritesheetWidth : number, spritesheetHeight : number) : Point {
+    let numTilesWide = spritesheetWidth / this.tileWidth;
+    let numTilesTall = spritesheetHeight / this.tileHeight;
+    return new Point(numTilesWide, numTilesTall);
   }
 
 }
