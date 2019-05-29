@@ -9,10 +9,15 @@
   </disk-button>
 
   <wrench-button #wrenchButton
+                 (click)="openSettingsModal()"
                  class="wrench-orb">
   </wrench-button>
 
 </div>
+
+<settings-modal #settingsModal
+                (modalClosed)="handleSettingsModalClosed()">
+</settings-modal>
 
 
 

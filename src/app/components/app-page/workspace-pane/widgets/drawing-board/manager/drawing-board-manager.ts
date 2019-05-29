@@ -44,6 +44,7 @@ export class DrawingBoardManager {
     mouseConsumer.setMouseDownCallback(this.mouseDownCallback.bind(this, tile));
     mouseConsumer.setMouseUpCallback(this.mouseUpCallback.bind(this));
     mouseConsumer.setMouseMoveCallback(this.mouseMoveCallback.bind(this, tile));
+    mouseConsumer.setMouseLeaveCallback(this.mouseLeaveCallback.bind(this));
     mouseConsumer.setBoundary(boundary);
 
     this.mouseEventCoordinator.addConsumer(mouseConsumer);
@@ -55,6 +56,10 @@ export class DrawingBoardManager {
   }
 
   private mouseUpCallback() {
+    this.mousePressed = false;
+  }
+
+  private mouseLeaveCallback() {
     this.mousePressed = false;
   }
 

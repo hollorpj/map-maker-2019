@@ -7,6 +7,8 @@ import {Drawable} from "src/app/canvas/interface/drawable";
 })
 export class InterComponentCommunicationService {
 
+  // Emitters
+
   /**
    * When a tile is clicked in the selection pane, it emits an event through this emitter
    * containing the data relating to the tile that was just clicked.
@@ -14,6 +16,12 @@ export class InterComponentCommunicationService {
    * in the top right corner as a preview
    */
   private tileSelectionImageEmitter : EventEmitter<CustomButton> = new EventEmitter<CustomButton>();
+
+  private settingsModalOpenEmitter : EventEmitter<void> = new EventEmitter<void>();
+
+  private settingsModalCloseEmitter : EventEmitter<void> = new EventEmitter<void>();
+
+  // States
 
   private currentlySelectedTile : Drawable;
 
@@ -36,8 +44,43 @@ export class InterComponentCommunicationService {
     this.currentlySelectedTile = tile;
   }
 
+  /**
+   * Returns the artist set by the 'setCurrentlySelectedTile' method
+   */
   public getCurrentlySelectedTile() : Drawable {
     return this.currentlySelectedTile;
+  }
+
+  /**
+   * Notifies subscribers that the settings modal has been opened
+   */
+  public notifyOfSettingModalOpen() : void {
+    this.settingsModalOpenEmitter.emit();
+  }
+
+  /**
+   * Returns the settingsModalOpenEmitter.
+   * This method is called to get the emitter so that the component can subscribed to the emitter
+   * to be notified when the settings modal is opened
+   */
+  public getSettingsModalOpenEmitter() : EventEmitter<void> {
+    return this.settingsModalOpenEmitter;
+  }
+
+  /**
+   * Notifies subscribers of the 'settingsModalCloseEmitter' that the modal has been closed.
+   */
+  public notifyOfSettingsModalClose() : void {
+    this.settingsModalCloseEmitter.emit();
+  }
+
+  /**
+   * Returns the settingsModalCloseEmitter.
+   * This method is called to get the emitter so that the component can subscribed to the emitter
+   * to be notified when the settings modal is close
+   */
+  public getSettingsModalCloseEmitter() : EventEmitter<void> {
+    return this.settingsModalCloseEmitter;
   }
 
 

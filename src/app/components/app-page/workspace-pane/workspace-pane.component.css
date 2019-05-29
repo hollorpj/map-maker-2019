@@ -14,12 +14,20 @@
   position: absolute;
 
   background-color: black;
+
+  transition: opacity 1s;
 }
 
 .drawing-board {
   position: absolute;
   right: calc(20px + 6.5vw + 40px);
   top: calc(10vh);
+
+  transition: opacity .3s;
+}
+
+.semi-translucent {
+  opacity: .1;
 }
 
 .button-panel {

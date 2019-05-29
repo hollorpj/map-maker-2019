@@ -1,15 +1,20 @@
 <div class="workspace-pane metal-background">
 
-  <div class="canvas-current-selection">
+  <div [ngClass]="{ 'semi-translucent' : !displayDrawingBoard }"
+       class="canvas-current-selection">
     <canvas #selectedTileCanvas
             [width]="selectedTileCanvasWidth"
             [height]="selectedTileCanvasHeight">
     </canvas>
   </div>
 
-  <drawing-board class="drawing-board"></drawing-board>
+  <drawing-board [ngClass]="{ 'semi-translucent' : !displayDrawingBoard }"
+                 class="drawing-board">
+  </drawing-board>
 
-  <button-panel class="button-panel"
-                [ngClass]="{ 'skew-button-panel' : settingsExpanded }"
-                (drawerToggle)="formatSettingsPanel($event)"></button-panel>
+  <control-panel class="button-panel"
+                 [ngClass]="{ 'skew-button-panel' : settingsExpanded }"
+                 (drawerToggle)="formatSettingsPanel($event)">
+  </control-panel>
+
 </div>

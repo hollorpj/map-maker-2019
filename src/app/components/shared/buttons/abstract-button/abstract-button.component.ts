@@ -12,14 +12,6 @@ export class AbstractButtonComponent {
   constructor() { }
 
   /**
-   * Internal Methods
-   */
-
-  public handleClick(event) {
-    event.stopPropagation();
-  }
-
-  /**
    * API Methods
    */
 

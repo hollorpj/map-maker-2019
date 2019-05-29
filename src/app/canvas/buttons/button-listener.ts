@@ -16,23 +16,33 @@ export class MouseEventConsumerImpl implements MouseEventConsumer {
   }
 
   consumeMouseDown(event) {
-    this.mouseDownCallback(event);
+    if (this.mouseDownCallback) {
+      this.mouseDownCallback(event);
+    }
   }
 
   consumeMouseUp(event) {
-    this.mouseUpCallback(event);
+    if (this.mouseUpCallback) {
+      this.mouseUpCallback(event);
+    }
   }
 
   consumeMouseEnter(event) {
-    this.mouseEnterCallback(event);
+    if (this.mouseEnterCallback) {
+      this.mouseEnterCallback(event);
+    }
   }
 
   consumeMouseLeave(event) {
-    this.mouseLeaveCallback(event);
+    if (this.mouseLeaveCallback) {
+      this.mouseLeaveCallback(event);
+    }
   }
 
   consumeMouseMove(event) {
-    this.mouseMoveCallback(event);
+    if (this.mouseMoveCallback) {
+      this.mouseMoveCallback(event);
+    }
   }
 
   setBoundary(boundary: Boundary) {

@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {FilledRectangle} from "src/app/canvas/artist/filled-rectangle";
-import {CustomButton} from "src/app/canvas/buttons/custom-button";
 import {DrawingBoardManager} from "src/app/components/app-page/workspace-pane/widgets/drawing-board/manager/drawing-board-manager";
 import {GridElement} from "src/app/canvas/buttons/grid-element";
 import {RectangularBoundary} from "src/app/canvas/boundary/rectangular-boundary";

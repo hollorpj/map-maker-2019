@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ButtonPanelComponent } from './button-panel.component';
+import { SettingsModalComponent } from './settings-modal.component';
 
-describe('ButtonPanelComponent', () => {
-  let component: ButtonPanelComponent;
-  let fixture: ComponentFixture<ButtonPanelComponent>;
+describe('SettingsModalComponent', () => {
+  let component: SettingsModalComponent;
+  let fixture: ComponentFixture<SettingsModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ButtonPanelComponent ]
+      declarations: [ SettingsModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonPanelComponent);
+    fixture = TestBed.createComponent(SettingsModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
