@@ -14,7 +14,7 @@
 }
 
 .translucent {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .modal {
@@ -80,6 +80,7 @@
   width: 59%;
   padding-left: 10px;
   margin-bottom: 5px;
+  /*background-color: grey;*/
 }
 
 #map-settings {

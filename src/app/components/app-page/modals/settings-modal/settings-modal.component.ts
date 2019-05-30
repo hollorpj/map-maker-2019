@@ -17,8 +17,8 @@ export class SettingsModalComponent  {
 
   private opening : boolean = false;
   private closing : boolean = false;
-  private hidden : boolean = false;
-  private displayingModal : boolean = true;
+  private hidden : boolean = true;
+  private displayingModal : boolean = false;
 
   constructor() { }
 
@@ -42,7 +42,7 @@ export class SettingsModalComponent  {
     this.closing = false;
     this.hidden = false;
     this.displayingModal = true;
-    setTimeout(() => this.opening = false, 1);
+    setTimeout(() => this.opening = false, 25);
   }
 
   /**

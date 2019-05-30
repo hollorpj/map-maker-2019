@@ -3,9 +3,9 @@
      [ngClass]="{ dimmer : !closing, translucent : closing }">
 </div>
 
-<div *ngIf="displayingModal"
+<div *ngIf="!hidden"
      class="modal"
-     [ngClass]="{ 'modal-opening' : opening, 'modal-finalized' : !opening }">
+     [ngClass]="{ 'modal-opening' : opening, 'modal-finalized' : !opening, translucent : closing }">
 
   <div id="map-settings" class="header text">Map Settings</div>
   <div class="container container-map">
