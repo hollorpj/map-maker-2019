@@ -15,8 +15,10 @@ export class SettingsModalComponent  {
 
   /** State **/
 
-  private open : boolean = false;
-  private hidden : boolean = true;
+  private opening : boolean = false;
+  private closing : boolean = false;
+  private hidden : boolean = false;
+  private displayingModal : boolean = true;
 
   constructor() { }
 
@@ -36,15 +38,19 @@ export class SettingsModalComponent  {
    * Simply opens the modal
    */
   public openModal() {
-    this.open = true;
+    this.opening = true;
+    this.closing = false;
     this.hidden = false;
+    this.displayingModal = true;
+    setTimeout(() => this.opening = false, 1);
   }
 
   /**
    * Simple closes the modal
    */
   public closeModal() {
-    this.open = false;
+    this.displayingModal = false;
+    this.closing = true;
     this.modalClosed.emit();
 
     setTimeout(() => {

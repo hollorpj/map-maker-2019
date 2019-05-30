@@ -27,12 +27,75 @@
   left: calc(50% - 33vw / 2 + 10%);
   top: calc(30vh - 30vh / 2);
 
-  /*background-color: black;*/
-  /*border: 4px solid #3d3d3d;*/
   background-color: #1e1e1e;
   border: 3px solid rgb(157, 157, 157);
-  /*border-color: ;*/
   border-radius: 8px;
 
+  transition: opacity 900ms;
+}
+
+.modal-opening {
+  opacity: 0;
+}
+
+.modal-finalized {
   opacity: 1;
+}
+
+.text {
+  color: rgb(157, 157, 157);
+}
+
+.header {
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 32px;
+  user-select: none;
+}
+
+.option {
+  margin-top: 3px;
+  width: 20%;
+}
+
+.option-import {
+  font-size: 14px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.container-map {
+  margin-left: 6%;
+}
+
+.container-import {
+  margin-left: 6%;
+}
+
+.selector {
+  width: 59%;
+  padding-left: 10px;
+  margin-bottom: 5px;
+}
+
+#map-settings {
+  margin-top: 45px;
+}
+
+#import-settings {
+  margin-top: 30px;
+}
+
+.button-panel {
+  position: absolute;
+  bottom: 10px;
+  right: 13px;
+}
+
+#cancel-button {
+  margin-right: 3px;
 }

@@ -1,9 +1,47 @@
 <div *ngIf="!hidden"
      class="cover"
-     [ngClass]="{ dimmer : open, translucent : !open }">
+     [ngClass]="{ dimmer : !closing, translucent : closing }">
 </div>
 
-<div *ngIf="open"
-     class="modal">
+<div *ngIf="displayingModal"
+     class="modal"
+     [ngClass]="{ 'modal-opening' : opening, 'modal-finalized' : !opening }">
+
+  <div id="map-settings" class="header text">Map Settings</div>
+  <div class="container container-map">
+    <div class="option text"># Tiles Wide</div>
+    <select class="selector">
+      <option></option>
+      <option>1</option>
+    </select>
+  </div>
+  <div class="container container-map">
+    <div class="option text"># Tiles Tall</div>
+    <select class="selector">
+      <option></option>
+      <option>1</option>
+    </select>
+  </div>
+
+  <div class="header text" id="import-settings">Import Settings</div>
+  <div class="container container-import">
+    <div class="option text option-import"># Pixels Wide</div>
+    <select class="selector">
+      <option></option>
+      <option>1</option>
+    </select>
+  </div>
+  <div class="container container-import">
+    <div class="option text option-import"># Pixels Tall</div>
+    <select class="selector">
+      <option></option>
+      <option>1</option>
+    </select>
+  </div>
+
+  <div class="button-panel">
+    <input id="cancel-button" type="button" value="Cancel"/>
+    <input type="button" value="Apply"/>
+  </div>
 
 </div>
