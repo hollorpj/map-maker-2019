@@ -26,6 +26,9 @@ export class DrawingBoardComponent implements AfterViewInit {
   private canvasContainerWidth : string;
   private canvasContainerHeight : string;
 
+  private numTilesTall : number;
+  private numTilesWide : number;
+
   private drawingBoardWidth : number;
   private drawingBoardHeight : number;
 
@@ -46,36 +49,65 @@ export class DrawingBoardComponent implements AfterViewInit {
     this.canvasContainerHeight = window.innerHeight * .8 + 'px';
     this.canvasContainerWidth = window.innerWidth * .58 - 20 + 'px';
 
+    this.numTilesTall = this.settingsStateSvc.getWorkspaceTilesTall();
+    this.numTilesWide = this.settingsStateSvc.getWorkspaceTilesWide();
+
+    this.calculateBoardDimensions();
+    this.initializeListeners();
+  }
+
+  /**
+   * Calculates the dimensions of the board.
+   * These values will be used by initializedFreshBoard when drawing the board
+   */
+  private calculateBoardDimensions() {
     const tentativeDrawingBoardWidth = window.innerWidth * .58 - 20;
-    if (this.settingsStateSvc.getWorkspaceTilesWide() * this.tileWidth > tentativeDrawingBoardWidth) {
-      this.drawingBoardWidth = this.settingsStateSvc.getWorkspaceTilesWide() * this.tileWidth;
+    if (this.numTilesWide * this.tileWidth > tentativeDrawingBoardWidth) {
+      this.drawingBoardWidth = this.numTilesWide * this.tileWidth;
     } else {
       this.drawingBoardWidth = tentativeDrawingBoardWidth;
     }
 
     const tentativeDrawingBoardHeight = window.innerHeight * .8;
-    if (this.settingsStateSvc.getWorkspaceTilesTall()  * this.tileHeight > tentativeDrawingBoardHeight) {
-      this.drawingBoardHeight = this.settingsStateSvc.getWorkspaceTilesTall() * this.tileHeight;
+    if (this.numTilesTall  * this.tileHeight > tentativeDrawingBoardHeight) {
+      this.drawingBoardHeight = this.numTilesTall * this.tileHeight;
     } else {
       this.drawingBoardHeight = tentativeDrawingBoardHeight;
     }
   }
 
+  /**
+   * Initializes listeners.
+   * Namely, listens for settings changes related to board size
+   */
+  private initializeListeners() {
+    this.settingsStateSvc.getWorkspaceDimensionEmitter().subscribe((newDimensions : number[]) => {
+      this.numTilesWide = newDimensions[0];
+      this.numTilesTall = newDimensions[1];
+
+      this.canvasCtx.clearRect(0, 0, this.drawingBoardWidth, this.drawingBoardHeight);
+
+      this.calculateBoardDimensions();
+      setTimeout(() => {
+        this.canvasCtx = this.drawingBoardElRef.nativeElement.getContext("2d");
+        this.initializeFreshBoard();
+      }, 300);
+    });
+  }
+
   ngAfterViewInit() {
     this.canvasCtx = this.drawingBoardElRef.nativeElement.getContext("2d");
-    this.canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-    this.canvasCtx.fillRect(0, 0, this.drawingBoardWidth, this.drawingBoardHeight);
     this.drawingBoardManager = new DrawingBoardManager(this.appCommSvc, this.drawingBoardElRef.nativeElement);
 
     this.initializeFreshBoard();
   }
 
   private initializeFreshBoard() {
-    const numTilesTall = this.drawingBoardHeight / this.tileHeight;
-    const numTilesWide = this.drawingBoardWidth / this.tileWidth;
+    this.canvasCtx.clearRect(0, 0, this.drawingBoardWidth, this.drawingBoardHeight);
+    this.drawingBoardManager.clearTiles();
 
-    for (let i = 0; i < numTilesTall; i++) {
-      for (let j = 0; j < numTilesWide; j++) {
+    for (let i = 0; i < this.numTilesTall; i++) {
+      for (let j = 0; j < this.numTilesWide; j++) {
         const x = j * this.tileWidth;
         const y = i * this.tileHeight;
 

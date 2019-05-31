@@ -1,4 +1,13 @@
-import {Component, ElementRef, EventEmitter, HostListener, Output, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Output,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
+import {SettingsStateService} from "src/app/service/settings-state-service.service";
 
 @Component({
   selector: 'settings-modal',
@@ -7,11 +16,28 @@ import {Component, ElementRef, EventEmitter, HostListener, Output, ViewChild} fr
 })
 export class SettingsModalComponent  {
 
+  /** View Children **/
+
+  @ViewChildren('tilesWideOption')
+  private tilesWideOptionElRefs : QueryList<ElementRef>;
+
+  @ViewChildren('tilesTallOption')
+  private tilesTallOptionElRefs : QueryList<ElementRef>;
+
+  @ViewChildren('pixelsWideOption')
+  private pixelsWideOptionElRefs : QueryList<ElementRef>;
+
+  @ViewChildren('pixelsTallOption')
+  private pixelsTallOptionElRefs : QueryList<ElementRef>;
 
   /** Output **/
 
   @Output()
   private modalClosed : EventEmitter<void> = new EventEmitter<void>();
+
+  /** Constants **/
+
+  private selectorOptions : string[] = new Array(1024);
 
   /** State **/
 
@@ -20,7 +46,7 @@ export class SettingsModalComponent  {
   private hidden : boolean = true;
   private displayingModal : boolean = false;
 
-  constructor() { }
+  constructor(private settingsStateService : SettingsStateService) { }
 
   /**
    * Gross javascript hack since Angular doesn't have key listeners
@@ -34,9 +60,6 @@ export class SettingsModalComponent  {
    * Exposed Methods
    */
 
-  /**
-   * Simply opens the modal
-   */
   public openModal() {
     this.opening = true;
     this.closing = false;
@@ -45,9 +68,6 @@ export class SettingsModalComponent  {
     setTimeout(() => this.opening = false, 25);
   }
 
-  /**
-   * Simple closes the modal
-   */
   public closeModal() {
     this.displayingModal = false;
     this.closing = true;
@@ -57,6 +77,26 @@ export class SettingsModalComponent  {
       this.hidden = true;
     }, 1000);
 
+  }
+
+  /**
+   * Private Methods
+   */
+
+  private applySettings() {
+    const newBoardWidth = this.getSelectedDropdownOption(this.tilesWideOptionElRefs.toArray());
+    const newBoardHeight = this.getSelectedDropdownOption(this.tilesTallOptionElRefs.toArray());
+
+    this.settingsStateService.setWorkspaceDimensions(newBoardWidth, newBoardHeight);
+    this.closeModal();
+  }
+
+  private getSelectedDropdownOption(optionRefs : ElementRef[]) {
+    for (let optionRef of optionRefs) {
+      if (optionRef.nativeElement.selected) {
+        return optionRef.nativeElement.value;
+      }
+    }
   }
 
 

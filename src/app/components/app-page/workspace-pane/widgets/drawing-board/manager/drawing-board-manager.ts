@@ -33,6 +33,10 @@ export class DrawingBoardManager {
     this.drawingBoardTiles.forEach(drawingBoardTile => drawingBoardTile.draw());
   }
 
+  public clearTiles() {
+    this.drawingBoardTiles = [];
+  }
+
   /**
    * Internal Methods
    */

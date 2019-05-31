@@ -11,15 +11,19 @@
   <div class="container container-map">
     <div class="option text"># Tiles Wide</div>
     <select class="selector">
-      <option></option>
-      <option>1</option>
+      <option #tilesWideOption
+              *ngFor="let val of selectorOptions; let i = index">
+        {{ i }}
+      </option>
     </select>
   </div>
   <div class="container container-map">
     <div class="option text"># Tiles Tall</div>
     <select class="selector">
-      <option></option>
-      <option>1</option>
+      <option #tilesTallOption
+              *ngFor="let val of selectorOptions; let i = index">
+        {{ i }}
+      </option>
     </select>
   </div>
 
@@ -27,21 +31,30 @@
   <div class="container container-import">
     <div class="option text option-import"># Pixels Wide</div>
     <select class="selector">
-      <option></option>
-      <option>1</option>
+      <option #pixelsWideOption
+              *ngFor="let val of selectorOptions; let i = index">
+        {{ i }}
+      </option>
     </select>
   </div>
   <div class="container container-import">
     <div class="option text option-import"># Pixels Tall</div>
     <select class="selector">
-      <option></option>
-      <option>1</option>
+      <option #pixelsTallOption
+              *ngFor="let val of selectorOptions; let i = index">
+        {{ i }}
+      </option>
     </select>
   </div>
 
   <div class="button-panel">
-    <input id="cancel-button" type="button" value="Cancel"/>
-    <input type="button" value="Apply"/>
+    <input id="cancel-button"
+           type="button"
+           value="Cancel"
+           (click)="closeModal()"/>
+    <input type="button"
+           value="Apply"
+           (click)="applySettings()"/>
   </div>
 
 </div>
